@@ -1,0 +1,32 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+    name: hello-deployment
+spec:
+    replicas: 5
+    selector:
+       matchLabels:
+          app: health-otus-kuber
+    template:
+       metadata:
+          labels:
+             app: health-otus-kuber
+       spec:
+          containers:
+          - name: otus-kuber
+            image: laurkan/otus-kuber:v0.0.2
+            ports:
+              - name: web
+                containerPort: 8000
+            livenessProbe:
+              httpGet: 
+                path: /health
+                port: 8000
+              initialDelaySeconds: 2
+              periodSeconds: 2
+            readinessProbe:
+              httpGet: 
+                path: /health
+                port: 8000 
+              initialDelaySeconds: 2
+              periodSeconds: 2
