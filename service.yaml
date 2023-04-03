@@ -7,6 +7,6 @@ spec:
     app: health-otus-kuber
   ports:
     - protocol: TCP
-      port: 8000
+      port: 80
       targetPort: web 
   type: ClusterIP
